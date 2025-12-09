@@ -2,15 +2,16 @@
     background: var(--primary-gradient);
     text-align: center;
     font-weight: 700;
-    padding: 25px 20px;
+    padding: 1.5rem 1rem;
     height: auto;
-    font-size: 2.5rem;
-    box-shadow: 0 4px 20px rgba(66, 153, 225, 0.3);
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.3);
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     letter-spacing: -0.5px;
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .header::after {
@@ -19,8 +20,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #4299e1, #38b2ac, #4299e1);
+    height: 3px;
+    background: linear-gradient(90deg, #1e3a8a, #1d4ed8, #1e3a8a);
     background-size: 200% 100%;
     animation: shimmer 3s infinite linear;
 }
@@ -28,4 +29,19 @@
 @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .header {
+        padding: 1.2rem 0.8rem;
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 1rem 0.5rem;
+        font-size: 1.4rem;
+    }
 }

@@ -1,12 +1,13 @@
 .Item{
     width: 100%;
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 1rem;
     margin: 0 auto;
     transition: all 0.3s ease;
     border-radius: 12px;
-    padding: 10px;
-    margin-bottom: 8px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
 }
 
 .Item:hover {
@@ -16,39 +17,42 @@
 
 .ItemName{
     font-weight: 600;
-    padding: 12px 0;
+    padding: 0.75rem 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .Line{
     border: none;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--border-color), transparent);
-    margin: 5px 0;
+    margin: 0.5rem 0;
 }
 
 .deletBtn{
     background: var(--danger-gradient);
     border: none;
     color: white;
-    padding: 10px 18px;
+    padding: 0.6rem 1.2rem;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 0.9rem;
     border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(245, 101, 101, 0.3);
-    min-width: 40px;
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+    min-width: 35px;
+    flex-shrink: 0;
 }
 
 .deletBtn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(245, 101, 101, 0.4);
+    box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4);
 }
 
 .deletBtn:active {
@@ -64,17 +68,68 @@
 .ItemName span:first-child {
     cursor: pointer;
     transition: all 0.3s ease;
-    padding: 8px 15px;
+    padding: 0.5rem 1rem;
     border-radius: 8px;
     flex-grow: 1;
-    margin-right: 15px;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .ItemName span:first-child:hover {
-    background: rgba(66, 153, 225, 0.1);
+    background: rgba(30, 58, 138, 0.1);
     text-decoration: none;
 }
 
 .completed:hover {
-    background: rgba(160, 174, 192, 0.1);
+    background: rgba(148, 163, 184, 0.1);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .Item {
+        padding: 0.6rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .ItemName {
+        padding: 0.5rem 0;
+    }
+    
+    .ItemName span:first-child {
+        padding: 0.4rem 0.8rem;
+        white-space: normal;
+        word-break: break-word;
+    }
+    
+    .deletBtn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .Item {
+        padding: 0.5rem;
+        margin-bottom: 0.3rem;
+        border-radius: 10px;
+    }
+    
+    .ItemName {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .ItemName span:first-child {
+        width: 100%;
+        margin-right: 0;
+    }
+    
+    .deletBtn {
+        align-self: flex-end;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
 }

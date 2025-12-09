@@ -1,24 +1,79 @@
 .footer{
     position: fixed;
     bottom: 0;
-    font-size: 1.1rem;
+    left: 0;
+    right: 0;
+    font-size: 1rem;
     font-weight: 600;
     text-align: center;
     background: var(--primary-gradient);
-    width: 100%;
-    padding: 20px;
+    padding: 1rem 0.5rem;
     color: white;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 -5px 25px var(--shadow-color);
+    z-index: 100;
+    margin-top: auto; /* Pushes footer to bottom */
 }
 
 .item{
     margin: 0;
-    padding: 0 20px;
     display: inline-block;
     background: rgba(255, 255, 255, 0.15);
-    padding: 12px 25px;
+    padding: 0.5rem 1.5rem;
     border-radius: 50px;
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* For larger screens, keep it fixed */
+@media (min-width: 769px) {
+    .footer {
+        position: fixed;
+        bottom: 0;
+    }
+}
+
+/* For tablets and smaller screens */
+@media (max-width: 768px) {
+    .footer {
+        position: fixed;
+        padding: 0.8rem 0.5rem;
+        font-size: 0.9rem;
+        background: var(--primary-gradient);
+    }
+    
+    .item {
+        padding: 0.4rem 1.2rem;
+    }
+}
+
+/* For mobile phones - switch to relative positioning if content is long */
+@media (max-width: 480px) {
+    .footer {
+        position: relative;
+        margin-top: 2rem;
+        border-radius: 16px;
+        margin: 2rem auto 1rem;
+        width: 95%;
+        max-width: 500px;
+        padding: 0.6rem 0.5rem;
+        font-size: 0.8rem;
+        box-shadow: 0 5px 25px var(--shadow-color);
+    }
+    
+    .item {
+        padding: 0.3rem 1rem;
+        white-space: normal;
+        word-break: break-word;
+    }
+}
+
+/* Alternative: Sticky footer that stays at bottom of content */
+.stickyFooter {
+    position: sticky;
+    bottom: 0;
 }
