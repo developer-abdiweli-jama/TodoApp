@@ -1,0 +1,16 @@
+.todolist {
+  background-color: var(--surface-color);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px var(--shadow-color);
+  width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  margin-top: 25px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  min-height: 200px;
+}
+
+.todolist:hover {
+  box-shadow: 0 15px 50px var(--shadow-color);
+}
