@@ -71,9 +71,3 @@
         word-break: break-word;
     }
 }
-
-/* Alternative: Sticky footer that stays at bottom of content */
-.stickyFooter {
-    position: sticky;
-    bottom: 0;
-}

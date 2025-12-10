@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A responsive todo list app with dark mode and local persistence." />
+    <meta name="theme-color" content="#1e3a8a" />
+    <title>My Todo List</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      // Apply the saved theme before first paint to avoid a flash of the wrong theme.
+      try {
+        if (JSON.parse(localStorage.getItem('darkMode'))) {
+          document.documentElement.setAttribute('data-theme', 'dark')
+        }
+      } catch (error) {
+        // Corrupted or unavailable storage: fall back to the light theme.
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

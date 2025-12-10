@@ -14,6 +14,14 @@
     width: 100%;
 }
 
+.title {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+}
+
 .header::after {
     content: '';
     position: absolute;

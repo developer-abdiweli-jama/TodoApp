@@ -20,9 +20,7 @@
     padding: 0.75rem 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 0.75rem;
 }
 
 .Line{
@@ -30,6 +28,37 @@
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--border-color), transparent);
     margin: 0.5rem 0;
+}
+
+.checkbox{
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+    margin: 0;
+}
+
+.checkbox:focus-visible{
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.label {
+    flex-grow: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem 0.25rem;
+    border-radius: 8px;
+}
+
+.label:hover {
+    background: rgba(30, 58, 138, 0.1);
+    text-decoration: none;
 }
 
 .deletBtn{
@@ -59,27 +88,14 @@
     transform: translateY(0);
 }
 
+.deletBtn:focus-visible {
+    outline: 2px solid var(--danger-color);
+    outline-offset: 2px;
+}
+
 .completed{
     text-decoration: line-through;
     color: var(--completed-color);
-    opacity: 0.7;
-}
-
-.ItemName span:first-child {
-    cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    flex-grow: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.ItemName span:first-child:hover {
-    background: rgba(30, 58, 138, 0.1);
-    text-decoration: none;
 }
 
 .completed:hover {
@@ -92,20 +108,21 @@
         padding: 0.6rem;
         margin-bottom: 0.4rem;
     }
-    
+
     .ItemName {
         padding: 0.5rem 0;
     }
-    
-    .ItemName span:first-child {
-        padding: 0.4rem 0.8rem;
+
+    .label {
+        padding: 0.4rem 0.25rem;
         white-space: normal;
         word-break: break-word;
     }
-    
+
     .deletBtn {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;
+        min-height: 32px;
     }
 }
 
@@ -115,21 +132,21 @@
         margin-bottom: 0.3rem;
         border-radius: 10px;
     }
-    
+
     .ItemName {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-wrap: wrap;
         gap: 0.5rem;
     }
-    
-    .ItemName span:first-child {
+
+    .label {
         width: 100%;
-        margin-right: 0;
+        order: 3;
     }
-    
+
     .deletBtn {
-        align-self: flex-end;
+        margin-left: auto;
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
+        min-height: 32px;
     }
 }
