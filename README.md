@@ -6,12 +6,11 @@
 ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge\&logo=vite\&logoColor=FFD62E)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge\&logo=css3\&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge\&logo=javascript\&logoColor=black)
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge\&logo=vitest\&logoColor=green)
 
 A responsive and polished Todo List application built as part of my React practice and skill refresh.
 
-[Live Demo](https://your-demo-url.com) •
-[Report Bug](https://github.com/yourusername/todo-app/issues) •
-[Request Feature](https://github.com/yourusername/todo-app/issues/new?template=feature_request.md)
+[Live Demo](#) • [Report Bug](https://github.com/developer-abdiweli-jama/TodoApp/issues) • [Request Feature](https://github.com/developer-abdiweli-jama/TodoApp/issues/new?template=feature_request.md)
 
 </div>
 
@@ -26,13 +25,15 @@ This app was built to sharpen my React understanding and practice modern UI patt
 ## Features
 
 * Add, delete, and complete tasks
-* Dark and light mode with saved user preference
+* Tasks persist in the browser — a refresh no longer wipes your list
+* Dark and light mode with saved user preference, applied before first paint (no flash)
 * Fully responsive layout
 * Navy blue themed UI with soft gradients
-* Real-time interactions with no lag
 * Completion counter in the footer
-* Efficient state handling and fast rendering
 * Unfinished tasks automatically appear first
+* Empty and whitespace-only tasks are rejected
+* Keyboard accessible: every action works with Tab, Space, and Enter
+* 35 automated tests covering the behaviour above
 
 ---
 
@@ -46,31 +47,35 @@ This app was built to sharpen my React understanding and practice modern UI patt
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/todo-app.git
-cd todo-app
+git clone https://github.com/developer-abdiweli-jama/TodoApp.git
+cd TodoApp
 npm install
 npm run dev
 ```
 
 Open your browser at `http://localhost:5173`.
 
-### Build
+### Available Scripts
 
-```bash
-npm run build
-```
-
-The production build will be available in the `dist/` folder.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the dev server with hot reload |
+| `npm run build` | Build for production into `dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint over the project |
+| `npm test` | Run the test suite once |
+| `npm run test:watch` | Run the test suite in watch mode |
 
 ---
 
 ## Tech Stack
 
 * React 19.2.0
-* Vite
+* Vite 7
 * CSS Modules
 * Modern JavaScript (ES6+)
-* Local Storage for theme persistence
+* Local Storage for task and theme persistence
+* Vitest + Testing Library for tests
 * Responsive layout using Grid and Flexbox
 
 ---
@@ -78,25 +83,38 @@ The production build will be available in the `dist/` folder.
 ## Folder Structure
 
 ```
-todo-app/
+TodoApp/
+├── index.html
 ├── public/
-│   └── index.html
+│   └── favicon.svg
 ├── src/
+│   ├── lib/
+│   │   ├── storage.js      # Safe localStorage read/write helpers
+│   │   ├── theme.js        # Theme preference persistence
+│   │   └── todos.js        # Todo model, creation and persistence
 │   ├── components/
 │   │   ├── Form.jsx
 │   │   ├── Header.jsx
 │   │   ├── TodoItem.jsx
 │   │   ├── TodoList.jsx
+│   │   ├── Todo.jsx
 │   │   ├── Footer.jsx
-│   │   └── ThemeToggle.jsx
-│   ├── styles/
-│   │   ├── App.css
+│   │   ├── ThemeToggle.jsx
 │   │   └── *.module.css
+│   ├── test/
+│   │   ├── setup.js
+│   │   ├── app.test.jsx
+│   │   ├── todo.test.jsx
+│   │   └── storage.test.js
+│   ├── assets/
+│   ├── App.css
 │   ├── App.jsx
-│   ├── main.jsx
-│   └── Todo.jsx
+│   └── main.jsx
+├── eslint.config.js
+├── vercel.json
 ├── vite.config.js
-└── package.json
+├── package.json
+└── README.md
 ```
 
 ---
@@ -107,6 +125,7 @@ todo-app/
 * Reusable, focused components
 * Mobile-first CSS with scalable typography
 * Semantic markup and keyboard-friendly interactions
+* Stable task ids, so tasks with identical names stay independent
 * Light bundle and optimized re-renders
 
 ---
@@ -115,15 +134,18 @@ todo-app/
 
 ### State Handling
 
-* Local state via `useState`
-* Simple parent–child data flow
-* Clean array operations for all task updates
+* Local state via `useState`, owned by `Todo.jsx`
+* Handlers passed down as `onAdd`, `onToggle`, and `onDelete`
+* State updates use functional updates, so rapid clicks never read stale state
+* Tasks and theme are mirrored to `localStorage` and restored on load
+* Corrupted or malformed stored data is discarded instead of crashing the app
 
 ### Theme System
 
 * Theme switching based on CSS variables
 * Saves user preference automatically
 * Smooth transitions on toggle
+* An inline script in `index.html` applies the saved theme before first paint
 
 ### Responsiveness
 
@@ -135,13 +157,59 @@ todo-app/
 
 ## Using the App
 
-**Add a task:** Type and hit Enter or click “Add”.
-**Complete a task:** Click the task text.
-**Delete a task:** Click the “x”.
+**Add a task:** Type and hit Enter or click “Add”. Empty input is rejected.
+**Complete a task:** Click the checkbox or the task text, or focus the checkbox and press Space.
+**Delete a task:** Click the “x” button.
 **Switch theme:** Use the toggle in the header.
 
-![Light Mode](./assets/screenshot-light.png)
-![Dark Mode](./assets/screenshot-dark.png)
+![Light Mode](./src/assets/screenshot-light.png)
+![Dark Mode](./src/assets/screenshot-dark.png)
+
+---
+
+## Testing
+
+```bash
+npm test
+```
+
+The suite runs on Vitest with jsdom and Testing Library. It covers task creation and
+validation, duplicate task names, toggle and delete targeting, completion counting,
+sort order, persistence, corrupted-storage recovery, and theme handling.
+
+---
+
+## Deployment
+
+The app lives at the repository root, so it deploys as a standard Vite project with no
+extra configuration. `vercel.json` pins the framework, build command, and output
+directory so the build is deterministic.
+
+### Vercel
+
+| Setting | Value |
+| --- | --- |
+| Root Directory | `.` (repository root) |
+| Framework Preset | Vite |
+| Install Command | `npm install` |
+| Build Command | `npm run build` |
+| Output Directory | `dist` |
+
+Connect the repository to Vercel and every push to `main` deploys automatically.
+
+### Any other static host
+
+```bash
+npm install
+npm run build
+```
+
+Publish the generated `dist/` directory. On Netlify or Cloudflare Pages the Vite preset
+is detected automatically; on GitHub Pages set the publish directory to `dist`.
+
+> **Note:** the app must stay at the repository root. If it is nested in a subdirectory,
+> the build and output directories have to be set explicitly, and a misconfigured output
+> directory serves the repository instead of the app — which returns a 404.
 
 ---
 
@@ -153,6 +221,7 @@ todo-app/
 * Creating responsive layouts
 * Improving app performance
 * Testing layouts across browsers
+* Why stable list keys and identity-based updates matter in React
 
 ---
 
@@ -164,7 +233,6 @@ todo-app/
 * Search and filters
 * Backend storage (API)
 * User accounts
-* Unit tests and integration tests
 
 ---
 
@@ -198,8 +266,8 @@ This project is under the MIT License.
 
 <p>
   <strong>Project Repository:</strong><br>
-  <a href="https://github.com/developer-abdiweli-jama/TodoApp-2" target="_blank">
-    github.com/developer-abdiweli-jama/TodoApp-2
+  <a href="https://github.com/developer-abdiweli-jama/TodoApp" target="_blank">
+    github.com/developer-abdiweli-jama/TodoApp
   </a>
 </p>
 
@@ -210,4 +278,3 @@ This project is under the MIT License.
   <p>⭐ If this project was useful, consider giving it a star.</p>
   <p>Built with ❤️ as a learning project.</p>
 </div>
-
